@@ -1,0 +1,96 @@
+body {
+    /* 背景色 */
+    background-color: brown;
+}
+
+h1 {
+    /* 中央揃え */
+    text-align: center;
+    /* フォントサイズ */
+    font-size: 40px;
+}
+
+h3 {
+    /* 中央揃え */
+    text-align: center;
+    
+}
+
+.text1 {
+    /* 高さサイズ */
+    height: 20px;
+    /* 横サイズ */
+    width: 300px;
+    /* 外側側サイズ */
+    margin-left: 13px;
+    /* 内側サイズ */
+    padding-top: 5px;
+}
+
+.text2 {
+    /* 高さサイズ */
+    height: 20px;
+    /* 横サイズ */
+    width: 300px;
+    /* 内側サイズ */
+    padding-top: 5px;
+}
+
+.text3 {
+    /* フォントサイズ */
+    font-size: 30px;
+    /* 中央揃え */
+    text-align: center;
+}
+
+.text4 {
+    /* 高さサイズ */
+    height: 20px;
+    /* 横サイズ */
+    width: 300px;
+    /* 外側側サイズ */
+    margin-left: 60px;
+    /* 内側サイズ */
+    padding-top: 5px;
+}
+
+.text5 {
+    /* 高さサイズ */
+    height: 20px;
+    /* 横サイズ */
+    width: 300px;
+    /* 外側側サイズ */
+    margin-left: 46px;
+    /* 内側サイズ */
+    padding-top: 5px;
+}
+
+.text6 {
+    /* 高さサイズ */
+    height: 20px;
+    /* 横サイズ */
+    width: 300px;
+    /* 内側サイズ */
+    padding-top: 5px;
+}
+
+.form1 {
+    /* フォントサイズ */
+    font-size: 20px;
+    /* 中央揃え */
+    text-align: center;
+}
+
+.form2 {
+    text-align: right;
+}
+
+.submit1 {
+    /* フォントサイズ */
+    font-size: 25px;
+}
+
+.submit2 {
+    /* フォントサイズ */
+    font-size: 20px;
+}

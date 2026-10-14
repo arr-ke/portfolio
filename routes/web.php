@@ -16,3 +16,5 @@ Route::middleware('auth')->group(function () {
     // ↓ポートのパス
     Route::resource("ports", PortController::class);
 });
+
+Route::get("userserror", [UserController::class, 'error'])->name("users.error");
