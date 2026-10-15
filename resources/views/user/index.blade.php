@@ -4,6 +4,13 @@
 
 @section('content')
 
+<!-- ↓セッションがあるのかを真偽判定しています。 -->
+@if (session('userloginerror'))
+    <div id="msg" style="display:none;">
+        {{ session('userloginerror') }}
+    </div>
+@endif
+
 <h1>ログイン</h1>
 
 <br>
@@ -17,9 +24,13 @@
 <br>
 <br>
 
-<form action="" class="form1">
-    <h3>ID <input type="text" class="text1"></h3>
-    <h3>PW <input type="text" class="text2"></h3>
+<form action="{{ route('users.login') }}" class="form1" method="post">
+    @csrf
+    <h3>
+        ID <input type="text" name="id" class="text1">
+        <br>
+        PW <input type="password" name="pw" class="text2">
+    </h3>
 
     <br>
     <br>

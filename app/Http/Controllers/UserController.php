@@ -57,9 +57,49 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        // ↓PWとPW確認の値が一緒なのかを真偽判定しています。
+        if ($request->input("pw") == $request->input("pwasr")) {
+            $users = User::All();
+
+            foreach ($users as $user) {
+                // ↓データベースのテーブルにnameと入力したがIDが一緒なのかを真偽判定しています。
+                if ($request->input("id") == $user['name']) {
+                    // ↓ユーザー登録画面
+                    return redirect()->route("users.create")
+                    ->with('usercreateerror', "すでにIDが使用されています。")
+                    ->withInput();
+                }
+            }
+
+            $name = $request->input("id");
+            $pw = $request->input("pw");
+
+            $user = new User();
+
+            $user->name = $name;
+            $user->password = $pw;
+            $user->created_at = Carbon::now('Asia/Tokyo');
+
+            // ユーザー登録ができたのかを真偽判定しています。
+            if ($user->save()) {
+                // ↓ログイン画面
+                return view("user.index");
+            } else {
+                // ↓ユーザー登録画面
+                return redirect()->route("users.create")
+                ->with('usercreateerror', "ユーザー登録に失敗しました。")
+                ->withInput();
+            }
+            
+        } else {
+            // ↓ユーザー登録画面
+            return redirect()->route("users.create")
+            ->with('usercreateerror', "PWとPW確認の値が一致しません。")
+            ->withInput();
+        }
+
     }
 
     /**
@@ -97,5 +137,30 @@ class UserController extends Controller
     public function error(UserRequest $request)
     {
         return view("user.error");
+    }
+
+    public function login(UserRequest $request)
+    {
+        // ↓値が入力されているのかを真偽判定しています。
+        if ($request->filled('id') && $request->filled('pw')) {
+            
+            // ログイン処理
+            $login = [
+                'name' => $request->input('id'),
+                'password' => $request->input('pw'),
+            ];
+
+            // ↓ログインができているのかを真偽判定しています。
+            if (Auth::attempt($login)) {
+                // ↓掲示板一覧画面
+                return view("port.index");
+            } else {
+                // ↓ログイン画面
+                return redirect()->route("users.index")->with('userloginerror', "ログインに失敗しました。");
+            }
+        } else {
+            // ↓ログイン画面
+            return redirect()->route("users.index")->with('userloginerror', "値を正しく入力してください。");
+        }
     }
 }

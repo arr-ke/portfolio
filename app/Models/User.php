@@ -46,4 +46,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // ↓更新日はnullです。
+    const UPDATED_AT = null;
 }
