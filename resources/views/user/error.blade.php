@@ -11,10 +11,6 @@
 <br>
 <br>
 
-@php 
-$value = "2";
-@endphp
-
 @if (session('value') == '1')
     <h3 class="text3">リンクエラーです。</h3>
     <h3 class="text3">000-0000-0000</h3>

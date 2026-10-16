@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use App\Models\Port;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
@@ -152,8 +153,11 @@ class UserController extends Controller
 
             // ↓ログインができているのかを真偽判定しています。
             if (Auth::attempt($login)) {
+                $ports = Port::all();
+                $loginsession = "ようこそ、". $request->input('id');
+
                 // ↓掲示板一覧画面
-                return view("port.index");
+                return view("port.index", compact("ports", "loginsession"));
             } else {
                 // ↓ログイン画面
                 return redirect()->route("users.index")->with('userloginerror', "ログインに失敗しました。");

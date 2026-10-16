@@ -24,12 +24,13 @@
 <br>
 <br>
 
+<!-- ↓ログイン画面 -->
 <form action="{{ route('users.login') }}" class="form1" method="post">
     @csrf
     <h3>
-        ID <input type="text" name="id" class="text1">
+        ID <input type="text" name="id" class="text1" required>
         <br>
-        PW <input type="password" name="pw" class="text2">
+        PW <input type="password" name="pw" class="text2" required>
     </h3>
 
     <br>

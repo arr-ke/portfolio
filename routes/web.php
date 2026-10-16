@@ -15,10 +15,16 @@ Route::resource("users", UserController::class);
 Route::middleware('auth')->group(function () {
     // ↓ポートのパス
     Route::resource("ports", PortController::class);
+
+    // ↓ログインエラーのパス
+    Route::get("portsserror", [PortController::class, 'error'])->name("ports.error");
 });
 
-// ↓ユーザーエラーのパス
+// ↓未ログインエラーのパス
 Route::get("userserror", [UserController::class, 'error'])->name("users.error");
 
 // ↓ユーザーログインのパス
 Route::post("userlogin", [UserController::class, 'login'])->name("users.login");
+
+// ↓ログアウトのパス
+Route::get("portslogout", [PortController::class, 'logout'])->name("ports.logout");

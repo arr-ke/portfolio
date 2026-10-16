@@ -28,6 +28,7 @@ class PortController extends Controller
         }
 
         try {
+
             // ↓ポートフォリオ一覧画面
             return view("port.index");
             // 原因不明エラーが起きた時
@@ -83,5 +84,35 @@ class PortController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function error(PortRequest $request)
+    {
+        // ↓エラー画面
+        return view("port.error");
+    }
+
+    public function logout(PortRequest $request)
+    {
+        try {
+            // ログアウト処理
+
+            Auth::logout();
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            // ↓ログインしていないのと、リンクエラーがおきていないのかを真偽判定しています。
+            if (!Auth::check() || !view()->exists('port.logout')) {
+                // ↓ログイン画面
+                return redirect()->route("users.index");
+            } else {
+                // ↓エラー画面
+                return redirect()->route("ports.error")->with('value', "1");
+            }
+        } catch (Exception $e) {
+            // ↓エラー画面
+            return redirect()->route("ports.error")->with('value', "2");
+        }
     }
 }
