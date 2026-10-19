@@ -1,4 +1,4 @@
-// アラート関数ファイル
+// アラート関数JSファイル
 
 $(function() {
     var message = $('#msg').text().trim();

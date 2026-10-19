@@ -1,6 +1,6 @@
 body {
     /* 背景色 */
-    background-color: brown;
+    background-color: blue;
 }
 
 h1 {
@@ -15,63 +15,6 @@ h3 {
     text-align: center;
 }
 
-.text1 {
-    /* 高さサイズ */
-    height: 20px;
-    /* 横サイズ */
-    width: 300px;
-    /* 外側側サイズ */
-    margin-left: 13px;
-    /* 内側サイズ */
-    padding-top: 5px;
-}
-
-.text2 {
-    /* 高さサイズ */
-    height: 20px;
-    /* 横サイズ */
-    width: 300px;
-    /* 内側サイズ */
-    padding-top: 5px;
-}
-
-.text3 {
-    /* フォントサイズ */
-    font-size: 30px;
-    /* 中央揃え */
-    text-align: center;
-}
-
-.text4 {
-    /* 高さサイズ */
-    height: 20px;
-    /* 横サイズ */
-    width: 300px;
-    /* 外側側サイズ */
-    margin-left: 60px;
-    /* 内側サイズ */
-    padding-top: 5px;
-}
-
-.text5 {
-    /* 高さサイズ */
-    height: 20px;
-    /* 横サイズ */
-    width: 300px;
-    /* 外側側サイズ */
-    margin-left: 46px;
-    /* 内側サイズ */
-    padding-top: 5px;
-}
-
-.text6 {
-    /* 高さサイズ */
-    height: 20px;
-    /* 横サイズ */
-    width: 300px;
-    /* 内側サイズ */
-    padding-top: 5px;
-}
 
 .form1 {
     /* フォントサイズ */
@@ -92,4 +35,145 @@ h3 {
 .submit2 {
     /* フォントサイズ */
     font-size: 20px;
+}
+
+/* box1CSS */
+.box1 {
+    border: 2px solid #333;
+    padding: 20px;
+    margin-left: 300px;
+
+    height: 200px;
+    width: 300px;
+    /* 背景色 */
+    background-color: white;
+    border-radius: 0px;
+}
+
+/* ヘッダーCSS */
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* 内側サイズ */
+    padding: 10px 16px;
+}
+
+/* ヘッダーulCSS */
+#header .nav ul {
+    display: flex;
+    gap: 3
+}
+
+/* ヘッダーul、liCSS */
+#header .nav ul li {
+    /* フォントサイズ */
+    font-size: 14px;
+}
+
+/* ハンバーガーアイコン外CSS */
+#header .hamburger {
+    /* 横サイズ */
+    width: 50px;
+    /* 高さサイズ */
+    height: 50px;
+
+    cursor: pointer;
+    position: fixed;
+    /* 上サイズ */
+    top: 5px;
+    /* 右サイズ */
+    right: 10px;
+
+    /* z軸サイズ */
+    z-index: 30;
+}
+
+/* ハンバーガーアイコン内CSS */
+#header .hamburger span {
+    /* 高さサイズ */
+    width: 30px;
+    /* 高さサイズ */
+    height: 3px;
+    /* 背景色 */
+    background-color: #000;
+
+    position: absolute;
+    /* 左サイズ */
+    left: 10px;
+    /* 動作設定 */
+    transition: all 0.4s;
+}
+
+/* ハンバーガー3本線CSS */
+#header .hamburger span:nth-of-type(1) {
+    /* 上サイズ */
+    top: 16px;
+}
+
+#header .hamburger span:nth-of-type(2) {
+    /* 上サイズ */
+    top: 25px;
+}
+
+#header .hamburger span:nth-of-type(3) {
+    /* 上サイズ */
+    top: 34px;
+}
+
+/* メニュー外CSS */
+#header .nav {
+    /* 横サイズ */
+    width: 80%;
+    /* 高さサイズ */
+    height: 100vh;
+    position: fixed;
+    /* 上サイズ */
+    top: 0;
+    /* 右サイズ */
+    right: -80%;
+    /* z軸サイズ */
+    z-index: 20;
+    /* 動作設定 */
+    transition: all 0.6s;
+}
+
+/* メニュー内CSS */
+#header .nav ul {
+    /* 横サイズ */
+    width: 100%;
+    /* 高さサイズ */
+    height: 100vh;
+    /* メニュー縦並び */
+    flex-direction: column;
+    /* 内側サイズ */
+    padding: 60px 0;
+    overflow: auto;
+    /* 余白調整 */
+    gap: 16px;
+    /* 中央揃え */
+    text-align: center;
+}
+
+/* ボタン動作CSS */
+#header .nav.active {
+    /* 右サイズ */
+    right: 0;
+}
+
+/* XボタンCSS */
+#header .hamburger.active span:nth-of-type(1) {
+    /* 上サイズ */
+    top: 24px;
+    transform: rotate(-45deg);
+}
+
+#header .hamburger.active span:nth-of-type(2) {
+    opacity: 0;
+}
+
+#header .hamburger.active span:nth-of-type(3) {
+    /* 上サイズ */
+    top: 24px;
+    transform: rotate(-45deg);
 }
