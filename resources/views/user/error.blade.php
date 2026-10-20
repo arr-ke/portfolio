@@ -7,9 +7,24 @@
 <h1>エラー</h1>
 
 <br>
+
+<!-- ログイン画面 -->
+<form action="{{ route('users.index') }}" class="form3" method="get">
+    <button type="submit" class="submit2">ユーザーログイン</button>
+</form>
+
+<br>
+
+<!-- ユーザー登録画面 -->
+<form action="{{ route('users.create') }}" class="form4" method="get">
+    <button type="submit" class="submit2">ユーザー登録</button>
+</form>
+
+
+
 <br>
 <br>
-<br>
+
 
 @if (session('value') == '1')
     <h3 class="text3">リンクエラーです。</h3>

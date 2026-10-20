@@ -1,6 +1,6 @@
 body {
     /* 背景色 */
-    background-color: blue;
+    background-color: brown;
 }
 
 h1 {
@@ -24,7 +24,30 @@ h3 {
 }
 
 .form2 {
+    /* 中央揃え */
+    text-align: center;
+    /* 外側サイズ */
+    margin-left: 60px;
+}
+
+.form3 {
+    /* 中央揃え */
+    text-align: center;
+    /* 外側サイズ */
+    margin-left: 60px;
+}
+
+.form4 {
+    /* 中央揃え */
+    text-align: center;
+    margin-left: 60px;
+}
+
+.form5 {
+    /* 中央揃え */
     text-align: right;
+    /* 外側サイズ */
+    margin-right: 30px;
 }
 
 .submit1 {
@@ -39,15 +62,22 @@ h3 {
 
 /* box1CSS */
 .box1 {
+    /* 枠サイズ、角色 */
     border: 2px solid #333;
+    /* 内側サイズ */
     padding: 20px;
-    margin-left: 300px;
-
-    height: 200px;
-    width: 300px;
+    /* 外側サイズ */
+    margin-left: 400px;
+    /* 高さサイズ */
+    height: 300px;
+    /* 横サイズ */
+    width: 500px;
     /* 背景色 */
     background-color: white;
+    /* 角丸 */
     border-radius: 0px;
+    /* スクロール処理 */
+    overflow: scroll;
 }
 
 /* ヘッダーCSS */
@@ -124,7 +154,7 @@ h3 {
 /* メニュー外CSS */
 #header .nav {
     /* 横サイズ */
-    width: 80%;
+    width: 20%;
     /* 高さサイズ */
     height: 100vh;
     position: fixed;
@@ -136,12 +166,15 @@ h3 {
     z-index: 20;
     /* 動作設定 */
     transition: all 0.6s;
+
+    /* 背景色 */
+    background-color: #999999;
 }
 
 /* メニュー内CSS */
 #header .nav ul {
     /* 横サイズ */
-    width: 100%;
+    width: 80%;
     /* 高さサイズ */
     height: 100vh;
     /* メニュー縦並び */
@@ -150,7 +183,7 @@ h3 {
     padding: 60px 0;
     overflow: auto;
     /* 余白調整 */
-    gap: 16px;
+    gap: 20px;
     /* 中央揃え */
     text-align: center;
 }
@@ -175,5 +208,5 @@ h3 {
 #header .hamburger.active span:nth-of-type(3) {
     /* 上サイズ */
     top: 24px;
-    transform: rotate(-45deg);
+    transform: rotate(45deg);
 }

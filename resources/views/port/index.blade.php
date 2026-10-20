@@ -1,6 +1,6 @@
-<!-- ログイン画面 -->
+<!-- ポートフォリオ一覧画面 -->
 
-@extends('layout.userapp')
+@extends('layout.portapp')
 
 @section('content')
 
@@ -33,18 +33,27 @@
         <span></span>
         <span></span>
     </div>
+
     <nav class="nav">
         <ul>
+            
+            <br>
+            <br>
+
             <!-- ユーザー登録画面 -->
             <form action="{{ route('ports.logout') }}" class="form2" onsubmit="return confirm('ログアウトしますか')" method="get">
                 <button type="submit" class="submit2">ログアウト</button>
             </form>
 
-            <form action="" class="form2">
+            <br>
+
+            <form action="" class="form3">
                 <button type="submit" class="submit2">白紙作成</button>
             </form>
 
-            <form action="" class="form2">
+            <br>
+
+            <form action="" class="form4">
                 <button type="submit" class="submit2">デフォルト作成</button>
             </form>
         </ul>
@@ -54,11 +63,15 @@
 
 <br>
 <br>
-
-<div class="box1">
-    @foreach ($ports as $port)
-        <a href="{{ route('ports.show', $port->id) }}"><h3>{{ $port->titlename }}</h3></a>
-    @endforeach
-</div>
+<h3>
+    <div class="box1">
+        @foreach ($ports as $port)
+            @if ($port->middle != NULL)
+                製作中
+            @endif
+            <a href="{{ route('ports.show', $port->id) }}"><h3>{{ $port->titlename }}</h3></a>
+        @endforeach
+    </div>
+</h3>
 
 @endsection

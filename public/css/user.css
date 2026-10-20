@@ -85,6 +85,17 @@ h3 {
     text-align: right;
 }
 
+.form3 {
+    text-align: right;
+    
+}
+
+.form4 {
+    text-align: right;
+    margin-top: -59px;
+    margin-right: 200px;
+}
+
 .submit1 {
     /* フォントサイズ */
     font-size: 25px;

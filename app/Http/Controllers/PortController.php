@@ -28,9 +28,10 @@ class PortController extends Controller
         }
 
         try {
+            $ports = Port::all();
 
             // ↓ポートフォリオ一覧画面
-            return view("port.index");
+            return view("port.index", compact("ports"));
             // 原因不明エラーが起きた時
         } catch (Exception $e) {
             // ↓エラー画面
@@ -59,7 +60,27 @@ class PortController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // ポートフォリオ閲覧処理
+
+        // ↓リンクエラーが起きていないかを真偽判定しています。
+        if (!view()->exists('port.show')) {
+            // ↓エラー画面
+            return redirect()->route("ports.error")->with('value', "1");
+        }
+
+        try {
+            $port = Port::findOrFail($id);
+            $portitems = Portitem::all();
+            $portitemimgs = Portitemimg::all();
+
+            // ↓ポートフォリオ閲覧画面
+            return view("port.show", compact("port", "portitems", "portitemimgs"));
+            // 原因不明エラーが起きた時
+        } catch (Exception $e) {
+            // ↓エラー画面
+            return redirect()->route("ports.error")->with('value', "2");
+        }
+
     }
 
     /**

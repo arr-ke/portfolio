@@ -1,16 +1,45 @@
 <!-- 未ログインエラー画面 -->
 
-@extends('layout.userapp')
+@extends('layout.portapp')
 
 @section('content')
 
 <h1>エラー</h1>
 
 <br>
-<br>
-<br>
-<br>
 
+<header id="header">
+    <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <nav class="nav">
+        <ul>
+            
+            <br>
+            <br>
+
+            <!-- ↓ポートフォリオ一覧画面 -->
+            <form action="{{ route('ports.index') }}" class="form3">
+                <button type="submit" class="submit2">一覧</button>
+            </form>
+
+            <br>
+
+            <!-- ユーザー登録画面 -->
+            <form action="{{ route('ports.logout') }}" class="form2" onsubmit="return confirm('ログアウトしますか')" method="get">
+                <button type="submit" class="submit2">ログアウト</button>
+            </form>
+
+        </ul>
+    </nav>
+</header>
+
+
+<br>
+<br>
 
 @if (session('value') == '1')
     <h3 class="text3">リンクエラーです。</h3>

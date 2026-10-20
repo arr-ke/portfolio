@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
 Route::get("userserror", [UserController::class, 'error'])->name("users.error");
 
 // ↓ユーザーログインのパス
-Route::post("userlogin", [UserController::class, 'login'])->name("users.login");
+Route::post("userslogin", [UserController::class, 'login'])->name("users.login");
 
 // ↓ログアウトのパス
 Route::get("portslogout", [PortController::class, 'logout'])->name("ports.logout");
