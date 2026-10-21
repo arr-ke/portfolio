@@ -80,6 +80,26 @@ h3 {
     overflow: scroll;
 }
 
+/* box2CSS */
+.box2 {
+    /* 枠サイズ、角色 */
+    border: 2px solid #333;
+    /* 内側サイズ */
+    padding: 20px;
+    /* 外側サイズ */
+    margin-left: 250px;
+    /* 高さサイズ */
+    height: 500px;
+    /* 横サイズ */
+    width: 800px;
+    /* 背景色 */
+    background-color: white;
+    /* 角丸 */
+    border-radius: 0px;
+    /* スクロール処理 */
+    overflow: scroll;
+}
+
 /* ヘッダーCSS */
 #header {
     display: flex;

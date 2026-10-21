@@ -4,7 +4,7 @@
 
 @section('content')
 
-<h1>ポートフォリオ閲覧</h1>
+<h1>{{ $port->titlename }}</h1>
 
 <br>
 <br>
@@ -57,17 +57,30 @@
 </header>
 
 
-<br>
-<br>
 <h3>
-    <div class="box1">
-        @foreach ($ports as $port)
-            @if ($port->middle != NULL)
-                製作中
-            @endif
-            <a href="{{ route('ports.show', $port->id) }}"><h3>{{ $port->titlename }}</h3></a>
-        @endforeach
+    <div class="box2" style="background-color: {{$port->backgroundcolor }};">
+        <h1>{{ $port->titlename }}</h1>
+            <br>
+            <br>
+        <h3>
+            @foreach ($portitems as $portitem)
+                {{ $portitem->itemname }}
+                <br>
+                {{ $portitem->contentname }}
+                <hr>
+            @endforeach
+        </h3>
     </div>
 </h3>
+
+<form action="" class="form1">
+    <button type="submit" class="submit1">PDF出力</button>
+</form>
+
+<br>
+
+<form action="" class="form1">
+    <button type="submit" class="submit1">削除</button>
+</form>
 
 @endsection

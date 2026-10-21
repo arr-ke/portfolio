@@ -60,16 +60,17 @@
     </nav>
 </header>
 
-
-<br>
-<br>
 <h3>
     <div class="box1">
         @foreach ($ports as $port)
-            @if ($port->middle != NULL)
-                製作中
+        <!-- ↓ユーザIDとログインIDが一致しているのかを真偽判定しています。 -->
+            @if (Auth::id() == $port->user_id)
+                <!-- middleがNULLでないかを真偽判定しています。 -->
+                @if ($port->middle != NULL)
+                    製作中
+                @endif
+                <a href="{{ route('ports.show', $port->id) }}"><h3>{{ $port->titlename }}</h3></a>
             @endif
-            <a href="{{ route('ports.show', $port->id) }}"><h3>{{ $port->titlename }}</h3></a>
         @endforeach
     </div>
 </h3>
