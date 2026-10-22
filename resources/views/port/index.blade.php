@@ -71,6 +71,7 @@
                 @endif
                 <a href="{{ route('ports.show', $port->id) }}"><h3>{{ $port->titlename }}</h3></a>
             @endif
+            <br>
         @endforeach
     </div>
 </h3>

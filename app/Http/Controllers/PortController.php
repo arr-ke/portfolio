@@ -104,7 +104,40 @@ class PortController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // 削除処理
+
+        $port = Port::findOrFail($id);
+        $portitems = Portitem::where('port_id', $port->id)->get();
+
+        foreach ($portitems as $portitem) {
+            $portitemimgs = Portitemimg::where('portitem_id', $portitem->id)->get();
+            foreach ($portitemimgs as $portitemimg) {
+                // ↓ポートフォリオ項目画像テーブルの削除ができているのかを真偽判定しています。
+                if ($portitemimg->delete()) {
+
+                } else {
+                    // ↓ポートフォリオ閲覧画面
+                    return redirect()->route("ports.show", $port->id)->with('showdeleteerror', $port->titlename . "削除に失敗しました1");
+                }
+            }
+            // ↓ポートフォリオ項目テーブルの削除ができているのかを真偽判定しています。
+            if ($portitem->delete()) {
+
+            } else {
+                // ↓ポートフォリオ閲覧画面
+                return redirect()->route("ports.show", $port->id)->with('showdeleteerror', $port->titlename . "削除に失敗しました2");
+            }
+        }
+        // ↓ポートフォリオが削除できているのかを真偽判定しています。
+        if ($port->delete()) {
+            $ports = Port::all();
+            
+            // ↓ポートフォリオ一覧画面
+            return view("port.index", compact("ports"));
+        } else {
+            // ↓ポートフォリオ閲覧画面
+            return redirect()->route("ports.show", $port->id)->with('showdeleteerror', $port->titlename . "削除に失敗しました3");
+        }
     }
 
     public function error(PortRequest $request)

@@ -4,6 +4,13 @@
 
 @section('content')
 
+<!-- ↓を真偽判定しています。 -->
+@if (session('showdeleteerror'))
+    <div id="msg" style="display:none;">
+        {{ session('showdeleteerror') }}
+    </div>
+@endif
+
 <h1>{{ $port->titlename }}</h1>
 
 <br>
@@ -58,16 +65,39 @@
 
 
 <h3>
-    <div class="box2" style="background-color: {{$port->backgroundcolor }};">
-        <h1>{{ $port->titlename }}</h1>
+    <div class="box2" style="background-color: {{ $port->backgroundcolor }};">
+        <h1 style="font-size: {{ $port->titlenamesize }}px; color: {{ $port->titlenamecolor }};">
+            {{ $port->titlename }}
+        </h1>
             <br>
             <br>
         <h3>
             @foreach ($portitems as $portitem)
-                {{ $portitem->itemname }}
-                <br>
-                {{ $portitem->contentname }}
-                <hr>
+                <!-- ↓ユーザIDとログインIDの一致とポートIDとポート項目のポートIDが一致しているのかを真偽判定しています。 -->
+                @if (Auth::id() == $port->user_id && $port->id == $portitem->port_id)
+                    <div style="font-size: {{ $portitem->itemfontsize }}px; color: {{$portitem->itemfontcolor }};">
+                        {{ $portitem->itemname }}
+                    </div>
+                    <div style="font-size: {{ $portitem->contentsize }}px; color: {{$portitem->contentcolor }};">
+                        {{ $portitem->contentname }}
+                    </div>
+
+                    
+                    
+                    @foreach ($portitemimgs as $portitemimg)
+                    <!-- ↓ポートIDとポート項目画像のポートIDの一致とポート項目IDとポート項目画像のポート項目IDが一致しているのか
+                    のかを真偽判定しています。 -->
+                        @if ($port->id == $portitemimg->port_id && $portitem->id == $portitemimg->portitem_id)
+                            <br>
+                            {{ $portitemimg->image_name }}
+                        @endif
+                    @endforeach
+
+                    <hr>
+
+                @endif
+
+                
             @endforeach
         </h3>
     </div>
@@ -79,7 +109,11 @@
 
 <br>
 
-<form action="" class="form1">
+<!-- ↓ポートフォリオ削除処理 -->
+<form action="{{ route('ports.destroy', $port->id) }}" class="form1" onsubmit="return confirm('{{ $port->titlename }}を削除しますか')" method="post" method="post">
+    @csrf
+
+    @method('DELETE')
     <button type="submit" class="submit1">削除</button>
 </form>
 
