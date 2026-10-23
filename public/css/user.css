@@ -1,8 +1,10 @@
+/* bodyのCSS */
 body {
     /* 背景色 */
     background-color: brown;
 }
 
+/* h1のCSS */
 h1 {
     /* 中央揃え */
     text-align: center;
@@ -10,12 +12,13 @@ h1 {
     font-size: 40px;
 }
 
+/* h3のCSS */
 h3 {
     /* 中央揃え */
     text-align: center;
-    
 }
 
+/* text1のCSS */
 .text1 {
     /* 高さサイズ */
     height: 20px;
@@ -27,6 +30,7 @@ h3 {
     padding-top: 5px;
 }
 
+/* text2のCSS */
 .text2 {
     /* 高さサイズ */
     height: 20px;
@@ -36,6 +40,7 @@ h3 {
     padding-top: 5px;
 }
 
+/* text3のCSS */
 .text3 {
     /* フォントサイズ */
     font-size: 30px;
@@ -43,6 +48,7 @@ h3 {
     text-align: center;
 }
 
+/* text4のCSS */
 .text4 {
     /* 高さサイズ */
     height: 20px;
@@ -54,6 +60,7 @@ h3 {
     padding-top: 5px;
 }
 
+/* text5のCSS */
 .text5 {
     /* 高さサイズ */
     height: 20px;
@@ -65,6 +72,7 @@ h3 {
     padding-top: 5px;
 }
 
+/* text6のCSS */
 .text6 {
     /* 高さサイズ */
     height: 20px;
@@ -74,6 +82,7 @@ h3 {
     padding-top: 5px;
 }
 
+/* form1のCSS */
 .form1 {
     /* フォントサイズ */
     font-size: 20px;
@@ -81,26 +90,34 @@ h3 {
     text-align: center;
 }
 
+/* form2のCSS */
 .form2 {
+    /* 右揃え */
     text-align: right;
 }
 
+/* form3のCSS */
 .form3 {
+    /* 右揃え */
     text-align: right;
-    
 }
 
+/* form4のCSS */
 .form4 {
+    /* 右揃え */
     text-align: right;
+    /* 外側サイズ */
     margin-top: -59px;
     margin-right: 200px;
 }
 
+/* submit1のCSS */
 .submit1 {
     /* フォントサイズ */
     font-size: 25px;
 }
 
+/* submit2のCSS */
 .submit2 {
     /* フォントサイズ */
     font-size: 20px;

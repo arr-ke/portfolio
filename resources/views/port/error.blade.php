@@ -17,9 +17,7 @@
 
     <nav class="nav">
         <ul>
-            
-            <br>
-            <br>
+            <h3 class="text1">{{ Auth::user()->name }}</h3>
 
             <!-- ↓ポートフォリオ一覧画面 -->
             <form action="{{ route('ports.index') }}" class="form3">
@@ -36,7 +34,6 @@
         </ul>
     </nav>
 </header>
-
 
 <br>
 <br>

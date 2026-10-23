@@ -17,7 +17,7 @@ Route::middleware('auth')->group(function () {
     Route::resource("ports", PortController::class);
 
     // ↓ログインエラーのパス
-    Route::get("portsserror", [PortController::class, 'error'])->name("ports.error");
+    Route::get("portserror", [PortController::class, 'error'])->name("ports.error");
 });
 
 // ↓未ログインエラーのパス

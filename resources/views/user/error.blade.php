@@ -20,11 +20,8 @@
     <button type="submit" class="submit2">ユーザー登録</button>
 </form>
 
-
-
 <br>
 <br>
-
 
 @if (session('value') == '1')
     <h3 class="text3">リンクエラーです。</h3>

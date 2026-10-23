@@ -11,6 +11,7 @@ use App\Models\Portitem;
 use App\Models\Portitemimg;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Exception;
 
@@ -111,13 +112,17 @@ class PortController extends Controller
 
         foreach ($portitems as $portitem) {
             $portitemimgs = Portitemimg::where('portitem_id', $portitem->id)->get();
+
             foreach ($portitemimgs as $portitemimg) {
-                // ↓ポートフォリオ項目画像テーブルの削除ができているのかを真偽判定しています。
-                if ($portitemimg->delete()) {
+                $deletepath = str_replace('storage', '', $portitemimg->image_name);
+        
+                // ↓ポートフォリオ項目画像テーブルの削除ができているのかと、
+                // ↓ポートフォリオ項目画像ファイルを画像フォルダーから削除できているのかを真偽判定しています。
+                if ($portitemimg->delete() && Storage::disk('public')->delete($deletepath)) {
 
                 } else {
                     // ↓ポートフォリオ閲覧画面
-                    return redirect()->route("ports.show", $port->id)->with('showdeleteerror', $port->titlename . "削除に失敗しました1");
+                    return redirect()->route("ports.show", $port->id)->with('showdeleteerror', $port->titlename . "削除に失敗しました");
                 }
             }
             // ↓ポートフォリオ項目テーブルの削除ができているのかを真偽判定しています。
@@ -125,7 +130,7 @@ class PortController extends Controller
 
             } else {
                 // ↓ポートフォリオ閲覧画面
-                return redirect()->route("ports.show", $port->id)->with('showdeleteerror', $port->titlename . "削除に失敗しました2");
+                return redirect()->route("ports.show", $port->id)->with('showdeleteerror', $port->titlename . "削除に失敗しました");
             }
         }
         // ↓ポートフォリオが削除できているのかを真偽判定しています。
@@ -136,7 +141,7 @@ class PortController extends Controller
             return view("port.index", compact("ports"));
         } else {
             // ↓ポートフォリオ閲覧画面
-            return redirect()->route("ports.show", $port->id)->with('showdeleteerror', $port->titlename . "削除に失敗しました3");
+            return redirect()->route("ports.show", $port->id)->with('showdeleteerror', $port->titlename . "削除に失敗しました");
         }
     }
 

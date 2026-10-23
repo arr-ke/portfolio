@@ -25,9 +25,7 @@
 
     <nav class="nav">
         <ul>
-            
-            <br>
-            <br>
+            <h3 class="text1">{{ Auth::user()->name }}</h3>
 
             <!-- ユーザー登録画面 -->
             <form action="{{ route('ports.logout') }}" class="form2" onsubmit="return confirm('ログアウトしますか')" method="get">
@@ -63,13 +61,12 @@
     </nav>
 </header>
 
-
 <h3>
     <div class="box2" style="background-color: {{ $port->backgroundcolor }};">
         <h1 style="font-size: {{ $port->titlenamesize }}px; color: {{ $port->titlenamecolor }};">
             {{ $port->titlename }}
+            <hr>
         </h1>
-            <br>
             <br>
         <h3>
             @foreach ($portitems as $portitem)
@@ -82,22 +79,55 @@
                         {{ $portitem->contentname }}
                     </div>
 
-                    
+                    @php
+                        $count = false;
+                    @endphp
                     
                     @foreach ($portitemimgs as $portitemimg)
-                    <!-- ↓ポートIDとポート項目画像のポートIDの一致とポート項目IDとポート項目画像のポート項目IDが一致しているのか
-                    のかを真偽判定しています。 -->
+                        <!-- ↓ポートIDとポート項目画像のポートIDの一致とポート項目IDとポート項目画像のポート項目IDが一致しているのか
+                             ↓のかを真偽判定しています。 -->
                         @if ($port->id == $portitemimg->port_id && $portitem->id == $portitemimg->portitem_id)
-                            <br>
-                            {{ $portitemimg->image_name }}
+                            @php
+                                $count = true;
+                                break;
+                            @endphp
                         @endif
                     @endforeach
 
+                    <!-- ↓countがtrueなのかを真偽判定しています。 -->
+                    @if ($count == true)
+                        <br>
+                        <div class="img1">
+                    @endif
+
+                    @php
+                        $count1 = 0;
+                    @endphp
+
+                        @foreach ($portitemimgs as $portitemimg)
+                            <!-- ↓ポートIDとポート項目画像のポートIDの一致とポート項目IDとポート項目画像のポート項目IDが一致しているのか
+                                 ↓のかを真偽判定しています。 -->
+                            @if ($port->id == $portitemimg->port_id && $portitem->id == $portitemimg->portitem_id)
+                                    @php
+                                        $count1++;
+                                    @endphp
+                                    <img src="{{ asset($portitemimg->image_name) }}" height="100" width="150">
+                            @endif
+                            <!-- ↓count1が5なのかを真偽判定しています。 -->
+                            @if ($count1 == 5)
+                                </div>
+                                <br>
+                                <div class="img1">
+                            @endif
+                        @endforeach
+
+                    <!-- ↓countがtrueなのかを真偽判定しています。 -->
+                    @if ($count == true)
+                        </div>
+                    @endif
+
                     <hr>
-
                 @endif
-
-                
             @endforeach
         </h3>
     </div>

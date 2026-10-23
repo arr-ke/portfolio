@@ -14,7 +14,6 @@
     @endphp
 @endif
 
-
 <!-- ↓セッションがあるのかを真偽判定しています。 -->
 @if (session('userloginerror'))
     <div id="msg" style="display:none;">
@@ -36,9 +35,7 @@
 
     <nav class="nav">
         <ul>
-            
-            <br>
-            <br>
+            <h3 class="text1">{{ Auth::user()->name }}</h3>
 
             <!-- ユーザー登録画面 -->
             <form action="{{ route('ports.logout') }}" class="form2" onsubmit="return confirm('ログアウトしますか')" method="get">
