@@ -18,6 +18,12 @@ Route::middleware('auth')->group(function () {
 
     // ↓ログインエラーのパス
     Route::get("portserror", [PortController::class, 'error'])->name("ports.error");
+
+    // ↓PDFインプットのパス
+    Route::get("portspdfinput/{id}", [PortController::class, 'pdfinput'])->name("ports.pdfinput");
+
+    // ↓PDF出力のパス
+    Route::post("portspdfoutput", [PortController::class, 'pdfoutput'])->name("ports.pdfoutput");
 });
 
 // ↓未ログインエラーのパス

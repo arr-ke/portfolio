@@ -174,4 +174,33 @@ class PortController extends Controller
             return redirect()->route("ports.error")->with('value', "2");
         }
     }
+
+    public function pdfinput(string $id)
+    {
+        // ポートフォリオPDF出力処理
+
+        // ↓リンクエラーが起きていないかを真偽判定しています。
+        if (!view()->exists('port.pdfinput')) {
+            // ↓エラー画面
+            return redirect()->route("ports.error")->with('value', "1");
+        }
+
+        try {
+            $port = Port::findOrFail($id);
+            $portitems = Portitem::all();
+            $portitemimgs = Portitemimg::all();
+
+            // ↓ポートフォリオ閲覧画面
+            return view("port.pdfinput", compact("port", "portitems", "portitemimgs"));
+            // 原因不明エラーが起きた時
+        } catch (Exception $e) {
+            // ↓エラー画面
+            return redirect()->route("ports.error")->with('value', "2");
+        }
+    }
+
+    public function pdfoutput(PortRequest $request)
+    {
+        
+    }
 }

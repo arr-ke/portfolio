@@ -65,14 +65,36 @@
     <div class="box2" style="background-color: {{ $port->backgroundcolor }};">
         <h1 style="font-size: {{ $port->titlenamesize }}px; color: {{ $port->titlenamecolor }};">
             {{ $port->titlename }}
-            <hr>
         </h1>
             <br>
         <h3>
+
+            @php
+                $count2 = 1;
+            @endphp
+
             @foreach ($portitems as $portitem)
                 <!-- ↓ユーザIDとログインIDの一致とポートIDとポート項目のポートIDが一致しているのかを真偽判定しています。 -->
                 @if (Auth::id() == $port->user_id && $port->id == $portitem->port_id)
-                    <div style="font-size: {{ $portitem->itemfontsize }}px; color: {{$portitem->itemfontcolor }};">
+                    <a href="#itemname{{ $count2 }}">{{ $portitem->itemname }}</a>
+
+                    @php
+                        $count2++;
+                    @endphp
+                @endif
+            @endforeach
+
+            <hr>
+
+            @php
+                $count2 = 1;
+                $count2++;
+            @endphp
+
+            @foreach ($portitems as $portitem)
+                <!-- ↓ユーザIDとログインIDの一致とポートIDとポート項目のポートIDが一致しているのかを真偽判定しています。 -->
+                @if (Auth::id() == $port->user_id && $port->id == $portitem->port_id)
+                    <div style="font-size: {{ $portitem->itemfontsize }}px; color: {{$portitem->itemfontcolor }};" id="itemname{{ $count2 }}">
                         {{ $portitem->itemname }}
                     </div>
                     <div style="font-size: {{ $portitem->contentsize }}px; color: {{$portitem->contentcolor }};">
@@ -81,6 +103,7 @@
 
                     @php
                         $count = false;
+                        $count2++;
                     @endphp
                     
                     @foreach ($portitemimgs as $portitemimg)
@@ -133,7 +156,7 @@
     </div>
 </h3>
 
-<form action="" class="form1">
+<form action="{{ route('ports.pdfinput', $port->id) }}" class="form1" method="get">
     <button type="submit" class="submit1">PDF出力</button>
 </form>
 
