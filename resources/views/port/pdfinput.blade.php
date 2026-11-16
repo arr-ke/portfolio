@@ -55,6 +55,11 @@
         background-color: {{ $port->backgroundcolor }};
     }
 
+    html {
+        /* リンク移動時のヘッダー高さ調整 */
+        scroll-padding-top: 100px;
+    }
+
     h1 {
         /* 中央揃え */
         text-align: center;
@@ -69,11 +74,25 @@
         position: fixed;
         display: flex;
         /* 背景色 */
-        background-color: white;
+        background-color: #CCFF99;
         /* 内側サイズ */
-        margin-left: 950px;
+        margin-top: -170px;
+        margin-left: -450px;
+
+        padding-left: 900px;
+        padding-top: 10px;
+        height: 50px;
+        width: 1000px;
     }
+
+    .img1 {
+        /* 内側サイズ */
+        margin-left: 270px;
+    }
+
 </style>
+
+
 
 <h3>
     <h1 style="font-size: {{ $port->titlenamesize }}px; color: {{ $port->titlenamecolor }};">
@@ -89,22 +108,22 @@
         @foreach ($portitems as $portitem)
             <!-- ↓ユーザIDとログインIDの一致とポートIDとポート項目のポートIDが一致しているのかを真偽判定しています。 -->
             @if (Auth::id() == $port->user_id && $port->id == $portitem->port_id)
-                <a href="#itemname{{ $count2 }}">{{ $portitem->itemname }}  </a>
-
+                <a href="#itemname{{ $count2 }}">
+                    <!-- ↓文字数を超える者は、...表示しています。 -->
+                    {{ Str::limit($portitem->itemname, 5, '...') }}
+                </a>
                 @php
                     $count2++;
                 @endphp
             @endif
         @endforeach
 
-        <hr>
     </div>
 
     <hr>
 
         @php
             $count2 = 1;
-            $count2++;
         @endphp
 
         @foreach ($portitems as $portitem)
