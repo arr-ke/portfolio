@@ -32,27 +32,19 @@
                 <button type="submit" class="submit2">ログアウト</button>
             </form>
 
-            <br>
-
             <!-- ↓ポートフォリオ一覧画面 -->
-            <form action="{{ route('ports.index') }}" class="form3">
+            <form action="{{ route('ports.index') }}" class="form3" method="get">
                 <button type="submit" class="submit2">一覧</button>
             </form>
-
-            <br>
 
             <!-- ↓ポートフォリオ一覧画面 -->
             <form action="" class="form3">
                 <button type="submit" class="submit2">編集</button>
             </form>
 
-            <br>
-
             <form action="" class="form3">
                 <button type="submit" class="submit2">白紙作成</button>
             </form>
-
-            <br>
 
             <form action="" class="form4">
                 <button type="submit" class="submit2">デフォルト作成</button>

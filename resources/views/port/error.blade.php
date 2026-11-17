@@ -20,11 +20,9 @@
             <h3 class="text1">{{ Auth::user()->name }}</h3>
 
             <!-- ↓ポートフォリオ一覧画面 -->
-            <form action="{{ route('ports.index') }}" class="form3">
+            <form action="{{ route('ports.index') }}" class="form3" method="get">
                 <button type="submit" class="submit2">一覧</button>
             </form>
-
-            <br>
 
             <!-- ユーザー登録画面 -->
             <form action="{{ route('ports.logout') }}" class="form2" onsubmit="return confirm('ログアウトしますか')" method="get">

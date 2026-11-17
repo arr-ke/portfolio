@@ -52,6 +52,7 @@ h3 {
 .form4 {
     /* 中央揃え */
     text-align: center;
+    /* 外側サイズ */
     margin-left: 60px;
 }
 
@@ -61,6 +62,13 @@ h3 {
     text-align: right;
     /* 外側サイズ */
     margin-right: 30px;
+}
+
+.form6 {
+    /* 中央揃え */
+    text-align: center;
+    /* 外側サイズ */
+    margin-left: 70px;
 }
 
 /* submit1のCSS */
@@ -214,7 +222,7 @@ h3 {
     /* メニュー縦並び */
     flex-direction: column;
     /* 内側サイズ */
-    padding: 60px 0;
+    padding: 0px 0;
     overflow: auto;
     /* 余白調整 */
     gap: 20px;

@@ -12,6 +12,7 @@ use App\Models\Portitemimg;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Exception;
 
@@ -201,6 +202,20 @@ class PortController extends Controller
 
     public function pdfoutput(PortRequest $request)
     {
-        
+        $port = Port::where('id', $request->port_id)
+                    ->where('user_id', Auth::id())
+                    ->firstOrFail();
+
+        $portitems = Portitem::where('port_id', $port->id)->get();
+        $portitemimgs = Portitemimg::where('port_id', $port->id)->get();
+
+        // ↓PDF出力フラグを立てる
+        $isPdf = true;
+
+        // ↓PDF化しています。
+        $pdf = Pdf::loadView('port.pdfinput', compact('port', 'portitems', 'portitemimgs', 'isPdf'));
+
+        // ↓PDFをダウンロードしています。
+        return $pdf->download($port->titlename. '.pdf');
     }
 }

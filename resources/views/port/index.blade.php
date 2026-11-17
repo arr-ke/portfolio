@@ -42,13 +42,9 @@
                 <button type="submit" class="submit2">ログアウト</button>
             </form>
 
-            <br>
-
             <form action="" class="form3">
                 <button type="submit" class="submit2">白紙作成</button>
             </form>
-
-            <br>
 
             <form action="" class="form4">
                 <button type="submit" class="submit2">デフォルト作成</button>

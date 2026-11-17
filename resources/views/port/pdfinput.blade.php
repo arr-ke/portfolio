@@ -1,56 +1,76 @@
 <!-- ポートフォリオPDFインプット画面 -->
 
-@extends('layout.portapp')
+<!-- ↓ブラウザー表示しているのかを真偽判定しています。 -->
+@if (empty($isPdf))
+    @extends('layout.portapp')
 
-@section('content')
+    @section('content')
+@endif
 
-<header id="header">
-    <div class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
+<!DOCTYPE html>
+<html land="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>port</title>
 
-    <nav class="nav">
-        <ul>
-            <h3 class="text1">{{ Auth::user()->name }}</h3>
+<body>
 
-            <!-- ユーザー登録画面 -->
-            <form action="{{ route('ports.logout') }}" class="form2" onsubmit="return confirm('ログアウトしますか')" method="get">
-                <button type="submit" class="submit2">ログアウト</button>
-            </form>
+<!-- ↓ブラウザー表示しているのかを真偽判定しています。 -->
+@if (empty($isPdf))
+    <header id="header">
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
 
-            <br>
+        <nav class="nav">
+            <ul>
+                <h3 class="text1">{{ Auth::user()->name }}</h3>
 
-            <!-- ↓ポートフォリオ一覧画面 -->
-            <form action="{{ route('ports.index') }}" class="form3">
-                <button type="submit" class="submit2">一覧</button>
-            </form>
+                <!-- ユーザー登録画面 -->
+                <form action="{{ route('ports.logout') }}" class="form2" onsubmit="return confirm('ログアウトしますか')" method="get">
+                    <button type="submit" class="submit2">ログアウト</button>
+                </form>
 
-            <br>
+                <!-- ↓ポートフォリオ一覧画面 -->
+                <form action="{{ route('ports.index') }}" class="form3" method="get">
+                    <button type="submit" class="submit2">一覧</button>
+                </form>
 
-            <!-- ↓ポートフォリオ一覧画面 -->
-            <form action="" class="form3">
-                <button type="submit" class="submit2">編集</button>
-            </form>
+                <!-- ↓ポートフォリオ一覧画面 -->
+                <form action="" class="form3">
+                    <button type="submit" class="submit2">編集</button>
+                </form>
 
-            <br>
+                <form action="" class="form3">
+                    <button type="submit" class="submit2">白紙作成</button>
+                </form>
 
-            <form action="" class="form3">
-                <button type="submit" class="submit2">白紙作成</button>
-            </form>
+                <form action="" class="form4">
+                    <button type="submit" class="submit2">デフォルト <br> 作成</button>
+                </form>
 
-            <br>
-
-            <form action="" class="form4">
-                <button type="submit" class="submit2">デフォルト作成</button>
-            </form>
-        </ul>
-    </nav>
-</header>
+                <!-- ↓ポートフォリオ閲覧画面 -->
+                <form action="{{ route('ports.show', $port->id) }}" class="form6" method="get">
+                    <button type="submit" class="submit2">閲覧</button>
+                </form>
+            </ul>
+        </nav>
+    </header>
+@endif
 
 <style>
+    /* 日本語フォントの設定 */
+    @font-face {
+        font-family: 'NotoSansJP';
+        font-style: normal;
+        font-weight: normal;
+        src: url("{{ storage_path('fonts/NotoSansJP-Regular.ttf') }}") format('truetype');
+    }
+
     body {
+        font-family: 'NotoSansJP', sans-serif;
         /* 背景色 */
         background-color: {{ $port->backgroundcolor }};
     }
@@ -77,12 +97,14 @@
         background-color: #CCFF99;
         /* 内側サイズ */
         margin-top: -170px;
-        margin-left: -450px;
-
-        padding-left: 900px;
+        margin-left: -20px;
+        /* 外側サイズ */
+        padding-left: 30px;
         padding-top: 10px;
+        /* 高さサイズ */
         height: 50px;
-        width: 1000px;
+        /* 横サイズ */
+        width: 1500px;
     }
 
     .img1 {
@@ -91,8 +113,6 @@
     }
 
 </style>
-
-
 
 <h3>
     <h1 style="font-size: {{ $port->titlenamesize }}px; color: {{ $port->titlenamecolor }};">
@@ -104,21 +124,31 @@
         @php
             $count2 = 1;
         @endphp
-    <div class="header1">
-        @foreach ($portitems as $portitem)
-            <!-- ↓ユーザIDとログインIDの一致とポートIDとポート項目のポートIDが一致しているのかを真偽判定しています。 -->
-            @if (Auth::id() == $port->user_id && $port->id == $portitem->port_id)
-                <a href="#itemname{{ $count2 }}">
-                    <!-- ↓文字数を超える者は、...表示しています。 -->
-                    {{ Str::limit($portitem->itemname, 5, '...') }}
-                </a>
-                @php
-                    $count2++;
-                @endphp
-            @endif
-        @endforeach
 
-    </div>
+    <!-- ↓ブラウザー表示しているのかを真偽判定しています。 -->
+    @if (empty($isPdf))
+        <div class="header1">
+            @foreach ($portitems as $portitem)
+                <!-- ↓ユーザIDとログインIDの一致とポートIDとポート項目のポートIDが一致しているのかを真偽判定しています。 -->
+                @if (Auth::id() == $port->user_id && $port->id == $portitem->port_id)
+                    <a href="#itemname{{ $count2 }}">
+                        <!-- ↓文字数を超える者は、...表示しています。 -->
+                        {{ Str::limit($portitem->itemname, 5, '...') }}
+                    </a>
+                    
+                    @php
+                        $count2++;
+                    @endphp
+
+                    <!-- ↓count2が10以下なのかを真偽判定しています。 -->
+                    @if ($count2 <= 10)
+                        　
+                    @endif
+                @endif
+            @endforeach
+
+        </div>
+    @endif
 
     <hr>
 
@@ -166,10 +196,16 @@
                         <!-- ↓ポートIDとポート項目画像のポートIDの一致とポート項目IDとポート項目画像のポート項目IDが一致しているのか
                                 ↓のかを真偽判定しています。 -->
                         @if ($port->id == $portitemimg->port_id && $portitem->id == $portitemimg->portitem_id)
-                                @php
-                                    $count1++;
-                                @endphp
+                            @php
+                                $count1++;
+                            @endphp
+
+                            <!-- ↓ブラウザー表示していないのかを真偽判定しています。 -->
+                            @if (!empty($isPdf))
+                                <img src="{{ public_path($portitemimg->image_name) }}" height="100" width="150">
+                            @else
                                 <img src="{{ asset($portitemimg->image_name) }}" height="100" width="150">
+                            @endif
                         @endif
                         <!-- ↓count1が5なのかを真偽判定しています。 -->
                         @if ($count1 == 5)
@@ -190,8 +226,19 @@
     </h3>
 </h3>
 
-<form action="" class="form1">
-    <button type="submit" class="submit1">PDF出力</button>
-</form>
+<!-- ↓ブラウザー表示しているのかを真偽判定しています。 -->
+@if (empty($isPdf))
+    <form action="{{ route('ports.pdfoutput') }}" class="form1" method="post">
+        @csrf
+        <input type="hidden" name="port_id" value="{{ $port->id }}">
+        <button type="submit" class="submit1">PDF出力</button>
+    </form>
+@endif
 
-@endsection
+</body>
+</html>
+
+<!-- ↓ブラウザー表示しているのかを真偽判定しています。 -->
+@if (empty($isPdf))
+    @endsection
+@endif
