@@ -2,6 +2,8 @@
 body {
     /* 背景色 */
     background-color: brown;
+    /* 文字フォント */
+    font-family: "游明朝", "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "MS PMincho", serif;
 }
 
 /* h1のCSS */
@@ -55,7 +57,7 @@ h3 {
     /* 横サイズ */
     width: 300px;
     /* 外側側サイズ */
-    margin-left: 60px;
+    margin-left: 56px;
     /* 内側サイズ */
     padding-top: 5px;
 }

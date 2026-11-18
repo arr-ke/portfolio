@@ -7,11 +7,79 @@
     @section('content')
 @endif
 
+
 <!DOCTYPE html>
 <html land="ja">
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="UTF-8">
     <title>port</title>
+
+    <style>
+        /* 日本語フォントの設定 */
+        @font-face {
+            font-family: 'ipaexg';
+            font-style: normal;
+            font-weight: normal;
+            src: url("file://{{ storage_path('fonts/ipaexg.ttf') }}") format('truetype');
+        }
+
+        /* 太字（bold）用を追加 */
+        @font-face {
+            font-family: 'ipaexg';
+            font-style: normal;
+            font-weight: bold;
+            src: url("file://{{ storage_path('fonts/ipaexg.ttf') }}") format('truetype');
+        }
+        
+        * {
+            font-family: 'ipaexg', sans-serif;;
+        }
+
+        body {
+            /* 背景色 */
+            background-color: {{ $port->backgroundcolor }};
+        }
+
+        html {
+            /* リンク移動時のヘッダー高さ調整 */
+            scroll-padding-top: 100px;
+        }
+
+        h1 {
+            /* 中央揃え */
+            text-align: center;
+        }
+
+        h3 {
+            /* 中央揃え */
+            text-align: center;
+        }
+
+        .header1 {
+            position: fixed;
+            display: flex;
+            /* 背景色 */
+            background-color: #CCFF99;
+            /* 内側サイズ */
+            margin-top: -170px;
+            margin-left: -20px;
+            /* 外側サイズ */
+            padding-left: 30px;
+            padding-top: 55px;
+            /* 高さサイズ */
+            height: 50px;
+            /* 横サイズ */
+            width: 1500px;
+        }
+
+        .img1 {
+            /* 内側サイズ */
+            margin-left: 270px;
+        }
+
+    </style>
+</head>
 
 <body>
 
@@ -60,70 +128,17 @@
     </header>
 @endif
 
-<style>
-    /* 日本語フォントの設定 */
-    @font-face {
-        font-family: 'NotoSansJP';
-        font-style: normal;
-        font-weight: normal;
-        src: url("{{ storage_path('fonts/NotoSansJP-Regular.ttf') }}") format('truetype');
-    }
 
-    body {
-        font-family: 'NotoSansJP', sans-serif;
-        /* 背景色 */
-        background-color: {{ $port->backgroundcolor }};
-    }
 
-    html {
-        /* リンク移動時のヘッダー高さ調整 */
-        scroll-padding-top: 100px;
-    }
-
-    h1 {
-        /* 中央揃え */
-        text-align: center;
-    }
-
-    h3 {
-        /* 中央揃え */
-        text-align: center;
-    }
-
-    .header1 {
-        position: fixed;
-        display: flex;
-        /* 背景色 */
-        background-color: #CCFF99;
-        /* 内側サイズ */
-        margin-top: -170px;
-        margin-left: -20px;
-        /* 外側サイズ */
-        padding-left: 30px;
-        padding-top: 10px;
-        /* 高さサイズ */
-        height: 50px;
-        /* 横サイズ */
-        width: 1500px;
-    }
-
-    .img1 {
-        /* 内側サイズ */
-        margin-left: 270px;
-    }
-
-</style>
+<h1 style="font-size: {{ $port->titlenamesize }}px; color: {{ $port->titlenamecolor }};">
+        {{ $port->titlename }}
+</h1>
 
 <h3>
-    <h1 style="font-size: {{ $port->titlenamesize }}px; color: {{ $port->titlenamecolor }};">
-        {{ $port->titlename }}
-    </h1>
-        <br>
-    <h3>
         
-        @php
-            $count2 = 1;
-        @endphp
+    @php
+        $count2 = 1;
+    @endphp
 
     <!-- ↓ブラウザー表示しているのかを真偽判定しています。 -->
     @if (empty($isPdf))
@@ -152,78 +167,77 @@
 
     <hr>
 
-        @php
-            $count2 = 1;
-        @endphp
+    @php
+        $count2 = 1;
+    @endphp
 
-        @foreach ($portitems as $portitem)
-            <!-- ↓ユーザIDとログインIDの一致とポートIDとポート項目のポートIDが一致しているのかを真偽判定しています。 -->
-            @if (Auth::id() == $port->user_id && $port->id == $portitem->port_id)
-                <div style="font-size: {{ $portitem->itemfontsize }}px; color: {{$portitem->itemfontcolor }};" id="itemname{{ $count2 }}">
-                    {{ $portitem->itemname }}
-                </div>
-                <div style="font-size: {{ $portitem->contentsize }}px; color: {{$portitem->contentcolor }};">
-                    {{ $portitem->contentname }}
-                </div>
+    @foreach ($portitems as $portitem)
+        <!-- ↓ユーザIDとログインIDの一致とポートIDとポート項目のポートIDが一致しているのかを真偽判定しています。 -->
+        @if (Auth::id() == $port->user_id && $port->id == $portitem->port_id)
+            <div style="font-size: {{ $portitem->itemfontsize }}px; color: {{$portitem->itemfontcolor }};" id="itemname{{ $count2 }}">
+                {{ $portitem->itemname }}
+            </div>
+            <div style="font-size: {{ $portitem->contentsize }}px; color: {{$portitem->contentcolor }};">
+                {{ $portitem->contentname }}
+            </div>
 
-                @php
-                    $count = false;
-                    $count2++;
-                @endphp
-                
+            @php
+                $count = false;
+                $count2++;
+            @endphp
+            
+            @foreach ($portitemimgs as $portitemimg)
+                <!-- ↓ポートIDとポート項目画像のポートIDの一致とポート項目IDとポート項目画像のポート項目IDが一致しているのか
+                        ↓のかを真偽判定しています。 -->
+                @if ($port->id == $portitemimg->port_id && $portitem->id == $portitemimg->portitem_id)
+                    @php
+                        $count = true;
+                        break;
+                    @endphp
+                @endif
+            @endforeach
+
+            <!-- ↓countがtrueなのかを真偽判定しています。 -->
+            @if ($count == true)
+                <br>
+                <div class="img1">
+            @endif
+
+            @php
+                $count1 = 0;
+            @endphp
+
                 @foreach ($portitemimgs as $portitemimg)
                     <!-- ↓ポートIDとポート項目画像のポートIDの一致とポート項目IDとポート項目画像のポート項目IDが一致しているのか
                             ↓のかを真偽判定しています。 -->
                     @if ($port->id == $portitemimg->port_id && $portitem->id == $portitemimg->portitem_id)
                         @php
-                            $count = true;
-                            break;
+                            $count1++;
                         @endphp
+
+                        <!-- ↓ブラウザー表示していないのかを真偽判定しています。 -->
+                        @if (!empty($isPdf))
+                            <img src="{{ public_path($portitemimg->image_name) }}" height="100" width="150">
+                        @else
+                            <img src="{{ asset($portitemimg->image_name) }}" height="100" width="150">
+                        @endif
+                    @endif
+                    <!-- ↓count1が5なのかを真偽判定しています。 -->
+                    @if ($count1 == 5)
+                        </div>
+                        <br>
+                        <div class="img1">
                     @endif
                 @endforeach
 
-                <!-- ↓countがtrueなのかを真偽判定しています。 -->
-                @if ($count == true)
-                    <br>
-                    <div class="img1">
-                @endif
-
-                @php
-                    $count1 = 0;
-                @endphp
-
-                    @foreach ($portitemimgs as $portitemimg)
-                        <!-- ↓ポートIDとポート項目画像のポートIDの一致とポート項目IDとポート項目画像のポート項目IDが一致しているのか
-                                ↓のかを真偽判定しています。 -->
-                        @if ($port->id == $portitemimg->port_id && $portitem->id == $portitemimg->portitem_id)
-                            @php
-                                $count1++;
-                            @endphp
-
-                            <!-- ↓ブラウザー表示していないのかを真偽判定しています。 -->
-                            @if (!empty($isPdf))
-                                <img src="{{ public_path($portitemimg->image_name) }}" height="100" width="150">
-                            @else
-                                <img src="{{ asset($portitemimg->image_name) }}" height="100" width="150">
-                            @endif
-                        @endif
-                        <!-- ↓count1が5なのかを真偽判定しています。 -->
-                        @if ($count1 == 5)
-                            </div>
-                            <br>
-                            <div class="img1">
-                        @endif
-                    @endforeach
-
-                <!-- ↓countがtrueなのかを真偽判定しています。 -->
-                @if ($count == true)
-                    </div>
-                @endif
-
-                <hr>
+            <!-- ↓countがtrueなのかを真偽判定しています。 -->
+            @if ($count == true)
+                </div>
             @endif
-        @endforeach
-    </h3>
+
+            <hr>
+        @endif
+    @endforeach
 </h3>
 
 <!-- ↓ブラウザー表示しているのかを真偽判定しています。 -->

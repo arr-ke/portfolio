@@ -58,93 +58,91 @@
         <h1 style="font-size: {{ $port->titlenamesize }}px; color: {{ $port->titlenamecolor }};">
             {{ $port->titlename }}
         </h1>
-            <br>
-        <h3>
+        <br>
 
-            @php
-                $count2 = 1;
-            @endphp
+        @php
+            $count2 = 1;
+        @endphp
 
-            @foreach ($portitems as $portitem)
-                <!-- ↓ユーザIDとログインIDの一致とポートIDとポート項目のポートIDが一致しているのかを真偽判定しています。 -->
-                @if (Auth::id() == $port->user_id && $port->id == $portitem->port_id)
-                    <a href="#itemname{{ $count2 }}">{{ $portitem->itemname }}</a>
+        @foreach ($portitems as $portitem)
+            <!-- ↓ユーザIDとログインIDの一致とポートIDとポート項目のポートIDが一致しているのかを真偽判定しています。 -->
+            @if (Auth::id() == $port->user_id && $port->id == $portitem->port_id)
+                <a href="#itemname{{ $count2 }}">{{ $portitem->itemname }}</a>
 
-                    @php
-                        $count2++;
-                    @endphp
+                @php
+                    $count2++;
+                @endphp
+            @endif
+        @endforeach
+
+        <hr>
+
+        @php
+            $count2 = 1;
+            $count2++;
+        @endphp
+
+        @foreach ($portitems as $portitem)
+            <!-- ↓ユーザIDとログインIDの一致とポートIDとポート項目のポートIDが一致しているのかを真偽判定しています。 -->
+            @if (Auth::id() == $port->user_id && $port->id == $portitem->port_id)
+                <div style="font-size: {{ $portitem->itemfontsize }}px; color: {{$portitem->itemfontcolor }};" id="itemname{{ $count2 }}">
+                    {{ $portitem->itemname }}
+                </div>
+                <div style="font-size: {{ $portitem->contentsize }}px; color: {{$portitem->contentcolor }};">
+                    {{ $portitem->contentname }}
+                </div>
+
+                @php
+                    $count = false;
+                    $count2++;
+                @endphp
+                
+                @foreach ($portitemimgs as $portitemimg)
+                    <!-- ↓ポートIDとポート項目画像のポートIDの一致とポート項目IDとポート項目画像のポート項目IDが一致しているのか
+                            ↓のかを真偽判定しています。 -->
+                    @if ($port->id == $portitemimg->port_id && $portitem->id == $portitemimg->portitem_id)
+                        @php
+                            $count = true;
+                            break;
+                        @endphp
+                    @endif
+                @endforeach
+
+                <!-- ↓countがtrueなのかを真偽判定しています。 -->
+                @if ($count == true)
+                    <br>
+                    <div class="img1">
                 @endif
-            @endforeach
 
-            <hr>
+                @php
+                    $count1 = 0;
+                @endphp
 
-            @php
-                $count2 = 1;
-                $count2++;
-            @endphp
-
-            @foreach ($portitems as $portitem)
-                <!-- ↓ユーザIDとログインIDの一致とポートIDとポート項目のポートIDが一致しているのかを真偽判定しています。 -->
-                @if (Auth::id() == $port->user_id && $port->id == $portitem->port_id)
-                    <div style="font-size: {{ $portitem->itemfontsize }}px; color: {{$portitem->itemfontcolor }};" id="itemname{{ $count2 }}">
-                        {{ $portitem->itemname }}
-                    </div>
-                    <div style="font-size: {{ $portitem->contentsize }}px; color: {{$portitem->contentcolor }};">
-                        {{ $portitem->contentname }}
-                    </div>
-
-                    @php
-                        $count = false;
-                        $count2++;
-                    @endphp
-                    
                     @foreach ($portitemimgs as $portitemimg)
                         <!-- ↓ポートIDとポート項目画像のポートIDの一致とポート項目IDとポート項目画像のポート項目IDが一致しているのか
-                             ↓のかを真偽判定しています。 -->
+                                ↓のかを真偽判定しています。 -->
                         @if ($port->id == $portitemimg->port_id && $portitem->id == $portitemimg->portitem_id)
-                            @php
-                                $count = true;
-                                break;
-                            @endphp
+                                @php
+                                    $count1++;
+                                @endphp
+                                <img src="{{ asset($portitemimg->image_name) }}" height="100" width="150">
+                        @endif
+                        <!-- ↓count1が5なのかを真偽判定しています。 -->
+                        @if ($count1 == 5)
+                            </div>
+                            <br>
+                            <div class="img1">
                         @endif
                     @endforeach
 
-                    <!-- ↓countがtrueなのかを真偽判定しています。 -->
-                    @if ($count == true)
-                        <br>
-                        <div class="img1">
-                    @endif
-
-                    @php
-                        $count1 = 0;
-                    @endphp
-
-                        @foreach ($portitemimgs as $portitemimg)
-                            <!-- ↓ポートIDとポート項目画像のポートIDの一致とポート項目IDとポート項目画像のポート項目IDが一致しているのか
-                                 ↓のかを真偽判定しています。 -->
-                            @if ($port->id == $portitemimg->port_id && $portitem->id == $portitemimg->portitem_id)
-                                    @php
-                                        $count1++;
-                                    @endphp
-                                    <img src="{{ asset($portitemimg->image_name) }}" height="100" width="150">
-                            @endif
-                            <!-- ↓count1が5なのかを真偽判定しています。 -->
-                            @if ($count1 == 5)
-                                </div>
-                                <br>
-                                <div class="img1">
-                            @endif
-                        @endforeach
-
-                    <!-- ↓countがtrueなのかを真偽判定しています。 -->
-                    @if ($count == true)
-                        </div>
-                    @endif
-
-                    <hr>
+                <!-- ↓countがtrueなのかを真偽判定しています。 -->
+                @if ($count == true)
+                    </div>
                 @endif
-            @endforeach
-        </h3>
+
+                <hr>
+            @endif
+        @endforeach
     </div>
 </h3>
 
