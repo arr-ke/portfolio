@@ -1,5 +1,4 @@
 /* bodyのCSS */
-
 body {
     /* 背景色 */
     background-color: brown;
@@ -254,6 +253,23 @@ h3 {
     /* 上サイズ */
     top: 24px;
     transform: rotate(45deg);
+}
+
+.header1 {
+    position: absolute;
+    display: flex;
+    /* 背景色 */
+    background-color: #CCFF99;
+    /* 内側サイズ */
+    margin-top: -153px;
+    margin-left: -20px;
+    /* 外側サイズ */
+    padding-left: 30px;
+    padding-top: 20px;
+    /* 高さサイズ */
+    height: 30px;
+    /* 横サイズ */
+    width: 795px;
 }
 
 /* img1のCSS */

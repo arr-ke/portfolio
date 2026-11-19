@@ -36,15 +36,17 @@
             font-family: 'ipaexg', sans-serif;;
         }
 
+        html {
+            /* リンク移動時のヘッダー高さ調整 */
+            scroll-padding-top: 100px;
+        }
+
         body {
             /* 背景色 */
             background-color: {{ $port->backgroundcolor }};
         }
 
-        html {
-            /* リンク移動時のヘッダー高さ調整 */
-            scroll-padding-top: 100px;
-        }
+        
 
         h1 {
             /* 中央揃え */
@@ -72,12 +74,6 @@
             /* 横サイズ */
             width: 1500px;
         }
-
-        .img1 {
-            /* 内側サイズ */
-            margin-left: 270px;
-        }
-
     </style>
 </head>
 
@@ -200,7 +196,6 @@
             <!-- ↓countがtrueなのかを真偽判定しています。 -->
             @if ($count == true)
                 <br>
-                <div class="img1">
             @endif
 
             @php
@@ -217,24 +212,17 @@
 
                         <!-- ↓ブラウザー表示していないのかを真偽判定しています。 -->
                         @if (!empty($isPdf))
-                            <img src="{{ public_path($portitemimg->image_name) }}" height="100" width="150">
+                            <img src="{{ public_path($portitemimg->image_name) }}" height="100" width="135">
                         @else
                             <img src="{{ asset($portitemimg->image_name) }}" height="100" width="150">
                         @endif
                     @endif
                     <!-- ↓count1が5なのかを真偽判定しています。 -->
                     @if ($count1 == 5)
-                        </div>
                         <br>
-                        <div class="img1">
+                        <br>
                     @endif
                 @endforeach
-
-            <!-- ↓countがtrueなのかを真偽判定しています。 -->
-            @if ($count == true)
-                </div>
-            @endif
-
             <hr>
         @endif
     @endforeach

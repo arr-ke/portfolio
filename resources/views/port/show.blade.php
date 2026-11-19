@@ -64,16 +64,26 @@
             $count2 = 1;
         @endphp
 
-        @foreach ($portitems as $portitem)
-            <!-- ↓ユーザIDとログインIDの一致とポートIDとポート項目のポートIDが一致しているのかを真偽判定しています。 -->
-            @if (Auth::id() == $port->user_id && $port->id == $portitem->port_id)
-                <a href="#itemname{{ $count2 }}">{{ $portitem->itemname }}</a>
+        <div class="header1">
+            @foreach ($portitems as $portitem)
+                <!-- ↓ユーザIDとログインIDの一致とポートIDとポート項目のポートIDが一致しているのかを真偽判定しています。 -->
+                @if (Auth::id() == $port->user_id && $port->id == $portitem->port_id)
+                    <a href="#itemname{{ $count2 }}">
+                        <!-- ↓文字数を超える者は、...表示しています。 -->
+                        {{ Str::limit($portitem->itemname, 5, '...') }}
+                    </a>
 
-                @php
-                    $count2++;
-                @endphp
-            @endif
-        @endforeach
+                    @php
+                        $count2++;
+                    @endphp
+
+                    <!-- ↓count2が10以下なのかを真偽判定しています。 -->
+                    @if ($count2 <= 10)
+                        　
+                    @endif
+                @endif
+            @endforeach
+        </div>
 
         <hr>
 
