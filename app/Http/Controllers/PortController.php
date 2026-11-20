@@ -23,6 +23,8 @@ class PortController extends Controller
      */
     public function index()
     {
+        // ポートフォリオ一覧画面処理
+
         // ↓リンクエラーが起きていないかを真偽判定しています。
         if (!view()->exists('port.index')) {
             // ↓エラー画面
@@ -46,7 +48,22 @@ class PortController extends Controller
      */
     public function create()
     {
-        //
+        // ポートフォリオ作成画面処理
+
+        // ↓リンクエラーが起きていないかを真偽判定しています。
+        if (!view()->exists('port.create')) {
+            // ↓エラー画面
+            return redirect()->route("ports.error")->with('value', "1");
+        }
+
+        try {
+            // ↓ポートフォリオ作成画面
+            return view("port.create");
+            // 原因不明エラーが起きた時
+        } catch (Exception $e) {
+            // ↓エラー画面
+            return redirect()->route("ports.error")->with('value', "2");
+        }
     }
 
     /**
@@ -62,7 +79,7 @@ class PortController extends Controller
      */
     public function show(string $id)
     {
-        // ポートフォリオ閲覧処理
+        // ポートフォリオ閲覧画面処理
 
         // ↓リンクエラーが起きていないかを真偽判定しています。
         if (!view()->exists('port.show')) {
@@ -106,7 +123,7 @@ class PortController extends Controller
      */
     public function destroy(string $id)
     {
-        // 削除処理
+        // ポートフォリオ削除処理
 
         $port = Port::findOrFail($id);
         $portitems = Portitem::where('port_id', $port->id)->get();
@@ -148,12 +165,16 @@ class PortController extends Controller
 
     public function error(PortRequest $request)
     {
+        // エラー画面処理
+
         // ↓エラー画面
         return view("port.error");
     }
 
     public function logout(PortRequest $request)
     {
+        // ログアウト処理
+
         try {
             // ログアウト処理
 
@@ -178,7 +199,7 @@ class PortController extends Controller
 
     public function pdfinput(string $id)
     {
-        // ポートフォリオPDF出力処理
+        // ポートフォリオPDF出力画面処理
 
         // ↓リンクエラーが起きていないかを真偽判定しています。
         if (!view()->exists('port.pdfinput')) {
@@ -202,6 +223,8 @@ class PortController extends Controller
 
     public function pdfoutput(PortRequest $request)
     {
+        // ポートフォリオPDF出力処理
+
         $port = Port::where('id', $request->port_id)
                     ->where('user_id', Auth::id())
                     ->firstOrFail();

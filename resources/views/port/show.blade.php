@@ -27,7 +27,7 @@
         <ul>
             <h3 class="text1">{{ Auth::user()->name }}</h3>
 
-            <!-- ユーザー登録画面 -->
+            <!-- ↓ログアウト処理 -->
             <form action="{{ route('ports.logout') }}" class="form2" onsubmit="return confirm('ログアウトしますか')" method="get">
                 <button type="submit" class="submit2">ログアウト</button>
             </form>
@@ -37,12 +37,13 @@
                 <button type="submit" class="submit2">一覧</button>
             </form>
 
-            <!-- ↓ポートフォリオ一覧画面 -->
+            <!-- ↓ポートフォリオ編集画面 -->
             <form action="" class="form3">
                 <button type="submit" class="submit2">編集</button>
             </form>
 
-            <form action="" class="form3">
+            <!-- ↓ログイン処理 -->
+            <form action="{{ route('ports.create') }}" class="form3" method="get">
                 <button type="submit" class="submit2">白紙作成</button>
             </form>
 

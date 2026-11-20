@@ -19,6 +19,8 @@ class UserController extends Controller
      */
     public function index()
     {
+        // ログイン画面処理
+
         // ↓リンクエラーが起きていないかを真偽判定しています。
         if (!view()->exists('user.index')) {
             // ↓エラー画面
@@ -40,6 +42,8 @@ class UserController extends Controller
      */
     public function create()
     {
+        // ユーザー登録画面処理
+
         // ↓リンクエラーが起きていないかを真偽判定しています。
         if (!view()->exists('user.create')) {
             // ↓エラー画面
@@ -60,6 +64,8 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+        // ユーザー登録処理
+
         // ↓PWとPW確認の値が一緒なのかを真偽判定しています。
         if ($request->input("pw") == $request->input("pwasr")) {
             $users = User::All();
@@ -137,11 +143,16 @@ class UserController extends Controller
 
     public function error(UserRequest $request)
     {
+        // エラー画面処理
+
+        // ↓エラー画面
         return view("user.error");
     }
 
     public function login(UserRequest $request)
     {
+        // ログイン処理
+
         // ↓値が入力されているのかを真偽判定しています。
         if ($request->filled('id') && $request->filled('pw')) {
             
