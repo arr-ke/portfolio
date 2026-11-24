@@ -18,12 +18,22 @@ h1 {
 h3 {
     /* 中央揃え */
     text-align: center;
+    /* フォントサイズ */
+    font-size: 20px;
 }
 
 /* text1のCSS */
 .text1 {
     /* 外側サイズ */
     margin-left: 60px;
+}
+
+/* text2のCSS */
+.text2 {
+    /* 高さサイズ */
+    height: 30px;
+    /* 横サイズ */
+    width: 300px;
 }
 
 /* form1のCSS */
@@ -83,6 +93,15 @@ h3 {
 .submit2 {
     /* フォントサイズ */
     font-size: 20px;
+}
+
+/* submit3のCSS */
+.submit3 {
+    /* フォントサイズ */
+    font-size: 25px;
+    /* 外側サイズ */
+    margin-top: -50px;
+    margin-bottom: 50px;
 }
 
 /* box1CSS */
@@ -261,7 +280,7 @@ h3 {
     /* 背景色 */
     background-color: #CCFF99;
     /* 内側サイズ */
-    margin-top: -153px;
+    margin-top: -154px;
     margin-left: -20px;
     /* 外側サイズ */
     padding-left: 30px;
@@ -278,4 +297,18 @@ h3 {
     display: flex;
     /* 余白サイズ */
     gap: 10px;
+}
+
+/* selectのCSS */
+.select {
+    /* フォントサイズ */
+    font-size: 20px;
+}
+
+/* colortのCSS */
+.color {
+    /* 高さサイズ */
+    height: 30px;
+    /* 横サイズ */
+    width: 100px;
 }

@@ -44,6 +44,8 @@
         body {
             /* 背景色 */
             background-color: {{ $port->backgroundcolor }};
+            /* 文字フォント */
+            font-family: "游明朝", "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "MS PMincho", serif;
         }
 
         
