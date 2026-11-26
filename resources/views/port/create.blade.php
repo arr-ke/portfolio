@@ -7,6 +7,17 @@
 
 <h1>ポートフォリオ作成</h1>
 
+<h3>
+    <div class="header2">
+        @for ($count = 0; $count <= 9; $count++)
+            <a href="#itemname[{{ $count }}]">
+                項目{{ $count + 1 }}
+            </a>
+            　
+        @endfor
+    </div>
+</h3>
+
 <br>
 <br>
 
@@ -39,7 +50,7 @@
 </header>
 
 <h3>
-    <form action="{{ route('ports.store') }}" method="post">
+    <form action="{{ route('ports.store') }}" enctype="multipart/form-data" method="post">
         <button type="submit" name="create" value="create" class="submit3">作成</button>
         　
         <button type="submit" name="create" value="save" class="submit3">途中保存</button>
@@ -81,10 +92,14 @@
         <br>
         <br>
 
+        @php 
+            $count = 1;
+        @endphp
+
         <!-- 項目全体を囲む親コンテナ -->
         <div id="items-container">
             <!-- 1つ目のブロック（初期表示・削除不可） -->
-            <div class="item-block" style="border: 1px; padding: 15px; margin-bottom: 20px;">
+            <div class="item-block" id="itemname[{{ $count }}]" style="border: 1px; padding: 15px; margin-bottom: 20px;">
                 <span class="label-itemname">項目1名</span>
                 <br>
                 <input type="text" name="itemname[]" maxlength="50" value="{{ old('itemname.0') }}" placeholder="50文字以内" class="text2" required>
@@ -131,7 +146,9 @@
 
                 <span class="label-image">画像1</span>
                 <br>
-                <input type="file" name="image[0][]" class="input-image">
+                <label for="image-upload">画像を選択（最大10枚まで）</label>
+                <br>
+                <input type="file" name="image[0][]" id="image-upload" accept="image/*" class="input-image" multiple>
             </div>
         </div>
 
@@ -146,75 +163,98 @@
 </h3>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const container = document.getElementById('items-container');
-    const addBtn = document.getElementById('add-btn');
-    const removeBtn = document.getElementById('remove-btn');
+    document.addEventListener('DOMContentLoaded', function () {
+        const container = document.getElementById('items-container');
+        const addBtn = document.getElementById('add-btn');
+        const removeBtn = document.getElementById('remove-btn');
 
-    // ↓項目一覧の最小数
-    const minItems = 1;
-    
-    // ↓項目一覧の最大数
-    const maxItems = 10;
+        // ↓項目一覧の最小数
+        const minItems = 1;
+        
+        // ↓項目一覧の最大数
+        const maxItems = 10;
 
-    // ボタンの表示・非表示と、番号を振り直す関数
-    function updateState() {
-        const blocks = container.querySelectorAll('.item-block');
-        const count = blocks.length;
+        // ボタンの表示・非表示と、番号を振り直す関数
+        function updateState() {
+            const blocks = container.querySelectorAll('.item-block');
+            const count = blocks.length;
 
-        // 1. ボタンの表示制御
-        // 項目一覧が10であれば、＋ボタンを非表示
-        addBtn.style.display = (count >= maxItems) ? 'none' : 'inline-block';
-        // ↓項目一覧が1であれば、マイナスボタンを非表示
-        removeBtn.style.display = (count <= minItems) ? 'none' : 'inline-block';
+            // 1. ボタンの表示制御
+            // 項目一覧が10であれば、＋ボタンを非表示
+            addBtn.style.display = (count >= maxItems) ? 'none' : 'inline-block';
+            // ↓項目一覧が1であれば、マイナスボタンを非表示
+            removeBtn.style.display = (count <= minItems) ? 'none' : 'inline-block';
 
-        // 2. 「項目1名」「項目2名」などの番号と、画像のname属性を更新
-        blocks.forEach((block, index) => {
-            const num = index + 1;
-            block.querySelector('.label-itemname').textContent = `項目${num}名`;
-            block.querySelector('.label-itemfontsize').textContent = `項目${num}名文字サイズ`;
-            block.querySelector('.label-itemfontcolor').textContent = `項目${num}名文字色`;
-            block.querySelector('.label-contentname').textContent = `項目${num}内容`;
-            block.querySelector('.label-contentsize').textContent = `項目${num}内容文字サイズ`;
-            block.querySelector('.label-contentcolor').textContent = `項目${num}内容文字色`;
-            block.querySelector('.label-image').textContent = `画像${num}`;
-            
-            // 画像のname属性も image[0][], image[1][] のように揃える
-            block.querySelector('.input-image').name = `image[${index}][]`;
+            // 2. 「項目1名」「項目2名」などの番号と、画像のname属性を更新
+            blocks.forEach((block, index) => {
+                const num = index + 1;
+
+                // ↓別項目へ移動するリンク
+                block.id = `itemname[${index}]`;
+
+                block.querySelector('.label-itemname').textContent = `項目${num}名`;
+                block.querySelector('.label-itemfontsize').textContent = `項目${num}名文字サイズ`;
+                block.querySelector('.label-itemfontcolor').textContent = `項目${num}名文字色`;
+                block.querySelector('.label-contentname').textContent = `項目${num}内容`;
+                block.querySelector('.label-contentsize').textContent = `項目${num}内容文字サイズ`;
+                block.querySelector('.label-contentcolor').textContent = `項目${num}内容文字色`;
+                block.querySelector('.label-image').textContent = `画像${num}`;
+                
+                // 画像のname属性も image[0][], image[1][] のように揃える
+                block.querySelector('.input-image').name = `image[${index}][]`;
+            });
+        }
+
+        // ＋ボタンの処理
+        addBtn.addEventListener('click', function () {
+            const blocks = container.querySelectorAll('.item-block');
+            if (blocks.length >= maxItems) return;
+
+            // 1つ目のブロックを複製
+            const clone = blocks[0].cloneNode(true);
+
+            // 複製した項目の値をリセット(1つめのの値をコピーしないための対策)
+            clone.querySelector('input[type="text"]').value = '';
+            clone.querySelector('textarea').value = '';
+            clone.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+            clone.querySelectorAll('input[type="color"]').forEach(color => color.value = '#000000');
+            clone.querySelector('input[type="file"]').value = '';
+
+            container.appendChild(clone);
+            updateState();
         });
-    }
 
-    // ＋ボタンの処理
-    addBtn.addEventListener('click', function () {
-        const blocks = container.querySelectorAll('.item-block');
-        if (blocks.length >= maxItems) return;
+        // -ボタンの処理
+        removeBtn.addEventListener('click', function () {
+            const blocks = container.querySelectorAll('.item-block');
+            if (blocks.length <= minItems) return;
 
-        // 1つ目のブロックを複製
-        const clone = blocks[0].cloneNode(true);
+            // 一番下のブロックを削除
+            blocks[blocks.length - 1].remove();
+            updateState();
+        });
 
-        // 複製した項目の値をリセット(1つめのの値をコピーしないための対策)
-        clone.querySelector('input[type="text"]').value = '';
-        clone.querySelector('textarea').value = '';
-        clone.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
-        clone.querySelectorAll('input[type="color"]').forEach(color => color.value = '#000000');
-        clone.querySelector('input[type="file"]').value = '';
+        // 画像上限処理
+        const MAX_FILES = 10;
 
-        container.appendChild(clone);
+        container.addEventListener('change', function (event) {
+            if (!event.target.classList.contains('input-image')) return;
+
+            const files = event.target.files;
+
+            // ↓画像が10枚をこえていないのかを真偽判定しています。
+            if (files.length > MAX_FILES) {
+                alert(`画像は各項目最大${MAX_FILES}までです。`);
+                event.target.value = '';
+                return;
+            }
+
+            console.log(`${files.length}枚の画像が選択されました`);
+        });
+
         updateState();
     });
 
-    // -ボタンの処理
-    removeBtn.addEventListener('click', function () {
-        const blocks = container.querySelectorAll('.item-block');
-        if (blocks.length <= minItems) return;
-
-        // 一番下のブロックを削除
-        blocks[blocks.length - 1].remove();
-        updateState();
-    });
-
-    updateState();
-});
 </script>
 
 @endsection

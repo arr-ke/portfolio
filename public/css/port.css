@@ -274,6 +274,7 @@ h3 {
     transform: rotate(45deg);
 }
 
+/* header1のCSS */
 .header1 {
     position: absolute;
     display: flex;
@@ -289,6 +290,24 @@ h3 {
     height: 30px;
     /* 横サイズ */
     width: 795px;
+}
+
+/* header2のCSS */
+.header2 {
+    position: fixed;
+    display: flex;
+    /* 背景色 */
+    background-color: #CCFF99;
+    /* 内側サイズ */
+    margin-top: -170px;
+    margin-left: -20px;
+    /* 外側サイズ */
+    padding-left: 30px;
+    padding-top: 55px;
+    /* 高さサイズ */
+    height: 50px;
+    /* 横サイズ */
+    width: 1500px;
 }
 
 /* img1のCSS */
